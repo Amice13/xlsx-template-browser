@@ -1,0 +1,31 @@
+{
+  "name": "xlsx-template-browser",
+  "version": "1.4.3",
+  "description": "On-the-fly generation of .xlsx (Excel) files directly within the browser using templates constructed in Excel.",
+  "main": "./lib/index",
+  "files": [
+    "lib"
+  ],
+  "author": {
+    "name": "Kyrylo Zakharov"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Amice13/xlsx-template-browser"
+  },
+  "bugs": {
+    "url": "https://github.com/Amice13/xlsx-template-browser/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://raw.githubusercontent.com/Amice13/xlsx-template-browser/main/LICENSE"
+    }
+  ],
+  "dependencies": {
+    "jszip": "^3.10.1"
+  },
+  "readme": "",
+  "readmeFilename": "README.md"
+}
