@@ -3,6 +3,10 @@
 On-the-fly generation of .xlsx (Excel) files directly within the browser using
 templates constructed in Excel.
 
+This library utilizes the native browser DOMParser and XMLSerializer for XML
+manipulation, resulting in fewer dependencies and a smaller bundle size
+compared to other similar projects.
+
 The basic principle is this: You create a template in Excel. This can be
 formatted as you wish, contain formulae etc. In this file, you put placeholders
 using a specific syntax (see below). In code, you build a map of placeholders
@@ -144,10 +148,13 @@ To use the library, you need the code like this:
 
 There are few altertantives for this library:
 
-* [xlsx-template](https://www.npmjs.com/package/xlsx-template) - this library was the source of
-  inspiration. The only issue that it works in Node only. Also it allows you to insert images and
-  has more dependencies.
-* [node-xlsx](https://www.npmjs.com/package/node-xlsx) - this library allows to manipulate the
-  data in worksheet, but the style of cells will be lost. The fork
-  [js-xlsx](https://github.com/protobi/js-xlsx/) might address the issue, but it hasn't been updated
-  for 4 years and could be considered overkill. Also the module is under Apache2 license.
+* [xlsx-template](https://www.npmjs.com/package/xlsx-template) - this library
+  was the source of inspiration. The only issue that it works in Node only.
+  Also it allows you to insert images and has more dependencies. In contrast to
+  **xlsx-template**, **xlsx-template-browser** also support property accessors
+  with bracket notation or mixed notation.
+* [node-xlsx](https://www.npmjs.com/package/node-xlsx) - this library allows to
+  manipulate the data in worksheet, but the style of cells will be lost. The
+  fork [js-xlsx](https://github.com/protobi/js-xlsx/) might address the issue,
+  but it hasn't been updated for 4 years and could be considered overkill.
+  Also **node-xlsx** is under Apache2 license.
