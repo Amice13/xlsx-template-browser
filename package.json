@@ -1,6 +1,6 @@
 {
   "name": "xlsx-template-browser",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "On-the-fly generation of .xlsx (Excel) files directly within the browser using templates constructed in Excel.",
   "main": "./lib/index",
   "files": [
