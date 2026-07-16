@@ -1,0 +1,5 @@
+*.*ts       # foo.cts foo.mts foo.ts
+!*.d.*ts
+*.fixture.*
+src
+test
