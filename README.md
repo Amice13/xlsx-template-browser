@@ -129,7 +129,9 @@ To use the library, you need the code like this:
       same number of insertions.
     * Merged cells, named tables or named cells/ranges below rows where further
       rows are inserted are moved down.
-  Formulae are not adjusted.
+    * Formulae are not adjusted.
+    * Tables, merged cells, conditional formatting, and data validation may
+      break if arrays are inserted from the left, as existing cells will be shifted
 * As a corollary to this, it is not always easy to build formulae that refer
   to cells in a table (e.g. summing all rows) where the exact number of rows
   or columns is not known in advance. There are two strategies for dealing
@@ -143,6 +145,14 @@ To use the library, you need the code like this:
       `TableName[ColumnName]` in your formula to refer to all values in a given
       column in the table as a logical range.
 * Placeholders only work in simple cells and tables.
+
+## Changelog History
+
+### Version 0.3.0
+
+* Performance is optimized
+* The libary supports merged cells, tables, pivot tables, changes in comments,
+  URL rendering
 
 ## Alternatives
 
