@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "allowArbitraryExtensions": true,
+    "declaration": true,
+    "declarationMap": true,
+    "lib": ["es2023", "dom"],
+    "module": "ESNext",
+    "rootDir": ".",
+    "outDir": "./dist",
+    "resolveJsonModule": true,
+    "rewriteRelativeImportExtensions": true,
+    "target": "es2022",
+    "strict": true,
+    "strictNullChecks": true,
+    "ignoreDeprecations": "6.0"
+  },
+  "include": ["./src"],
+  "exclude": ["./test", "tsup.config.ts"]
+}

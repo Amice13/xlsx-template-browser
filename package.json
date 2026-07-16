@@ -3,9 +3,27 @@
   "version": "0.2.1",
   "description": "On-the-fly generation of .xlsx (Excel) files directly within the browser using templates constructed in Excel.",
   "main": "./lib/index",
+  "type": "module",
   "files": [
     "lib"
   ],
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "ts-standard": {
+    "project": "./tsconfig.json",
+    "ignore": [
+      "tsup.config.ts"
+    ]
+  },
+  "scripts": {
+    "build": "tsup",
+    "ts-standard": "ts-standard -p tsconfig.json ./src"
+  },
   "author": {
     "name": "Kyrylo Zakharov"
   },
@@ -36,5 +54,9 @@
     "office",
     "spreadsheet",
     "property accessor"
-  ]
+  ],
+  "devDependencies": {
+    "ts-standard": "^12.0.2",
+    "tsup": "^8.5.1"
+  }
 }
