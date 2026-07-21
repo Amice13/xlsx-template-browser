@@ -61,6 +61,9 @@ export const getTables = async ({
       })
     }
 
+    let columnExtension = 0
+    let rowExtension = 0
+    let currentRow = 0
     const extend = (cell: Cell): Cell | undefined => {
       const t = tables.get(file)
       // Extend headers row
@@ -79,11 +82,18 @@ export const getTables = async ({
 
       // Set in advance extensions for the table
       if (Array.isArray(cell.newValue)) {
+        if (cell.row !== currentRow) {
+          currentRow = cell.row
+          columnExtension = 0
+          rowExtension = 0
+        }
         const length = cell.newValue.length - 1
         if ('$isTable' in cell.newValue) {
-          t.extension.rows = t.extension.rows + length
+          rowExtension = Math.max(length, rowExtension) - Math.min(length, rowExtension)
+          t.extension.rows = t.extension.rows + rowExtension
         } else {
-          t.extension.cols = t.extension.cols + length
+          columnExtension = columnExtension + length
+          t.extension.cols = Math.max(columnExtension, t.extension.cols)
         }
       }
       t.isDirty = true

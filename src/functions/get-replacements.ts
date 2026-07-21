@@ -34,6 +34,10 @@ export const getReplacements = (oldValues: Element[], dataStore: DataStore): Map
       }
       const isTable = typeof match.groups.table === 'string'
       const value = dataStore.get(match.groups.accessor)
+      if (typeof value !== 'object') {
+        replacements.set(String(index), '')
+        continue
+      }
       const cloned = structuredClone(value)
       if (isTable) Object.defineProperty(cloned, '$isTable', { value: true, enumerable: false })
       replacements.set(String(index), cloned)

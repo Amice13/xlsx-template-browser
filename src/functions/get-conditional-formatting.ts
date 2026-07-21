@@ -18,13 +18,23 @@ export const getConditionalFormatting = (xml: Document): ConditionalFormattings 
       cols: 0
     }
 
+    let columnExtension = 0
+    let rowExtension = 0
+    let currentRow = 0
     const extend = (cell: Cell): void => {
       if (Array.isArray(cell.newValue)) {
+        if (cell.row !== currentRow) {
+          currentRow = cell.row
+          columnExtension = 0
+          rowExtension = 0
+        }
         const length = cell.newValue.length - 1
         if ('$isTable' in cell.newValue) {
-          extension.rows = Math.max(length, extension.rows)
+          rowExtension = Math.max(length, rowExtension) - Math.min(length, rowExtension)
+          extension.rows = extension.rows + rowExtension
         } else {
-          extension.cols = Math.max(length, extension.cols)
+          columnExtension = columnExtension + length
+          extension.cols = Math.max(columnExtension, extension.cols)
         }
       }
     }

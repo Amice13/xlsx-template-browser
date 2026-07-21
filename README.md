@@ -148,6 +148,13 @@ To use the library, you need the code like this:
 
 ## Changelog History
 
+### Version 0.3.1
+
+* Bugfix in types
+* Proper extensions of rows and columns for tables, pivot tables, data validations,
+  and conitional formatting un case of multiple extensions
+* Proper handling of undefined ${table:} values
+
 ### Version 0.3.0
 
 * Performance is optimized

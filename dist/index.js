@@ -543,6 +543,10 @@ var getReplacements = (oldValues, dataStore) => {
       }
       const isTable = typeof match.groups.table === "string";
       const value = dataStore.get(match.groups.accessor);
+      if (typeof value !== "object") {
+        replacements.set(String(index), "");
+        continue;
+      }
       const cloned = structuredClone(value);
       if (isTable) Object.defineProperty(cloned, "$isTable", { value: true, enumerable: false });
       replacements.set(String(index), cloned);
@@ -1185,13 +1189,23 @@ var getConditionalFormatting = (xml) => {
       rows: 0,
       cols: 0
     };
+    let columnExtension = 0;
+    let rowExtension = 0;
+    let currentRow = 0;
     const extend = (cell) => {
       if (Array.isArray(cell.newValue)) {
+        if (cell.row !== currentRow) {
+          currentRow = cell.row;
+          columnExtension = 0;
+          rowExtension = 0;
+        }
         const length = cell.newValue.length - 1;
         if ("$isTable" in cell.newValue) {
-          extension.rows = Math.max(length, extension.rows);
+          rowExtension = Math.max(length, rowExtension) - Math.min(length, rowExtension);
+          extension.rows = extension.rows + rowExtension;
         } else {
-          extension.cols = Math.max(length, extension.cols);
+          columnExtension = columnExtension + length;
+          extension.cols = Math.max(columnExtension, extension.cols);
         }
       }
     };
@@ -1277,6 +1291,9 @@ var getTables = async ({
         return h;
       });
     };
+    let columnExtension = 0;
+    let rowExtension = 0;
+    let currentRow = 0;
     const extend = (cell) => {
       const t = tables.get(file);
       if (t === void 0) return;
@@ -1292,11 +1309,18 @@ var getTables = async ({
         }
       }
       if (Array.isArray(cell.newValue)) {
+        if (cell.row !== currentRow) {
+          currentRow = cell.row;
+          columnExtension = 0;
+          rowExtension = 0;
+        }
         const length = cell.newValue.length - 1;
         if ("$isTable" in cell.newValue) {
-          t.extension.rows = t.extension.rows + length;
+          rowExtension = Math.max(length, rowExtension) - Math.min(length, rowExtension);
+          t.extension.rows = t.extension.rows + rowExtension;
         } else {
-          t.extension.cols = t.extension.cols + length;
+          columnExtension = columnExtension + length;
+          t.extension.cols = Math.max(columnExtension, t.extension.cols);
         }
       }
       t.isDirty = true;
@@ -1749,13 +1773,23 @@ var getPivotTables = async (xlsx) => {
       rows: 0,
       cols: 0
     };
+    let columnExtension = 0;
+    let rowExtension = 0;
+    let currentRow = 0;
     const extend = (cell) => {
       if (Array.isArray(cell.newValue)) {
+        if (cell.row !== currentRow) {
+          currentRow = cell.row;
+          columnExtension = 0;
+          rowExtension = 0;
+        }
         const length = cell.newValue.length - 1;
         if ("$isTable" in cell.newValue) {
-          extension.rows = Math.max(length, extension.rows);
+          rowExtension = Math.max(length, rowExtension) - Math.min(length, rowExtension);
+          extension.rows = extension.rows + rowExtension;
         } else {
-          extension.cols = Math.max(length, extension.cols);
+          columnExtension = columnExtension + length;
+          extension.cols = Math.max(columnExtension, extension.cols);
         }
       }
     };
@@ -1873,13 +1907,23 @@ var getDataValidations = (sheets) => {
           validation.listRange.range = parseCellRange(reference.ref);
         }
       }
+      let columnExtension = 0;
+      let rowExtension = 0;
+      let currentRow = 0;
       const extend = (cell) => {
         if (Array.isArray(cell.newValue)) {
+          if (cell.row !== currentRow) {
+            currentRow = cell.row;
+            columnExtension = 0;
+            rowExtension = 0;
+          }
           const length = cell.newValue.length - 1;
           if ("$isTable" in cell.newValue) {
-            extension.rows = Math.max(length, extension.rows);
+            rowExtension = Math.max(length, rowExtension) - Math.min(length, rowExtension);
+            extension.rows = extension.rows + rowExtension;
           } else {
-            extension.cols = Math.max(length, extension.cols);
+            columnExtension = columnExtension + length;
+            extension.cols = Math.max(columnExtension, extension.cols);
           }
         }
       };

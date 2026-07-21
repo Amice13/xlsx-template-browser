@@ -10,7 +10,7 @@ import { serializeXml } from './xml-helpers'
 import type { Relations } from '../types/relations'
 import { getDrawings } from './get-drawings'
 import { getOldComments } from './get-old-comments'
-import { Sheet } from '../types/sheets'
+import { type Sheet } from '../types/sheets'
 
 export const getSheet = async ({
   xlsx,
