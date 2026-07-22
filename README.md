@@ -200,7 +200,7 @@ const downloadReport = async () => {
 
 ## Changelog History
 
-### Version 0.3.1
+### Version 0.3.3
 
 * `$comments` and `$validations` are added
 

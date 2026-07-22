@@ -775,6 +775,13 @@ var processWorksheets = async ({
         dataValidations.add(xml, validation);
       }
     }
+    const currentComments = dataStore.get("$comments");
+    if (Array.isArray(currentComments)) {
+      for (const comment of currentComments) {
+        if (comment.sheet !== name) continue;
+        comments.add(comment);
+      }
+    }
     replaceCells(newSheetData);
     comments.save();
     conditionalFormattings.save();
