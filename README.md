@@ -89,7 +89,7 @@ above.
 
 To use the library, you need the code like this:
 
-```
+```js
     import { generateXlsx, downloadXlsx } from 'xlsx-template-browser'
 
     // Set your values to fill the template
@@ -115,6 +115,58 @@ To use the library, you need the code like this:
       return await downloadXlsx(template, values, 'My fabulous report.xlsx')
     }
 ```
+
+## Comments and validations
+
+You can add custom comments and data validations to a spreadsheet. To do so,
+add the `$comments` and `$validations` arrays to the data object you pass to
+the template. Each array should contain objects with the following structure:
+
+```js
+import { downloadXlsx } from 'xlsx-template-browser'
+
+// Values used to fill the template
+const values = {
+  extractDate: new Date(),
+  $comments: [
+    {
+      sheet: 'Sheet1',
+      ref: 'A1',
+      text: 'My fabulous comment in cell A1'
+    },
+    {
+      sheet: 'Sheet1',
+      ref: 'A2',
+      text: 'Another comment nearby'
+    }
+  ],
+  $validations: [
+    {
+      sheet: 'Sheet1',
+      type: 'custom',
+      sqref: '$A:$A',
+      formula: '=ISNUMBER(A1)'
+    },
+    {
+      sheet: 'Sheet1',
+      type: 'list',
+      sqref: '$B:$B',
+      formula: '=INDIRECT("NamedTable[FieldOfNamedTable]")'
+    }
+  ]
+}
+
+// You can provide either a URL to the Excel template or an ArrayBuffer.
+const template = '[URL TO YOUR TEMPLATE]'
+
+// Download the generated report.
+const downloadReport = async () => {
+  return await downloadXlsx(template, values, 'My fabulous report.xlsx')
+}
+```
+
+> **Note:** Comments can only be added to worksheets that already contain
+  at least one comment in the template. This is an Excel file format limitation.
 
 ## Caveats
 
@@ -147,6 +199,10 @@ To use the library, you need the code like this:
 * Placeholders only work in simple cells and tables.
 
 ## Changelog History
+
+### Version 0.3.1
+
+* `$comments` and `$validations` are added
 
 ### Version 0.3.1
 

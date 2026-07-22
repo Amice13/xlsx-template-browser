@@ -1,5 +1,5 @@
 import type JSZip from 'jszip'
-import type { ThreadedComment, Comments, Comment } from '../types/comments'
+import type { ThreadedComment, Comments, Comment, AddComment } from '../types/comments'
 import { createXml, serializeXml } from './xml-helpers'
 import type { Relations } from '../types/relations'
 import { NS, NS_TC } from './constants'
@@ -100,12 +100,7 @@ export const getComments = async ({
     drawings = props
   }
 
-  const add = ({ ref, text, row, column }: {
-    row?: number
-    column?: number
-    ref?: string
-    text: string
-  }): void => {
+  const add = ({ ref, text, row, column }: AddComment): void => {
     addRelation()
     if (ref === undefined) {
       if (row === undefined || column === undefined) {

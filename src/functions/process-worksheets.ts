@@ -1,4 +1,5 @@
 import { type Cell } from '../types/cells'
+import type { AddComment } from '../types/comments'
 import { type DataStore } from '../types/data-store'
 import type { CreateDataValidation } from '../types/data-validation'
 import { type Workbook } from '../types/workbook'
@@ -207,6 +208,13 @@ export const processWorksheets = async ({
       for (const validation of (validations as CreateDataValidation[])) {
         if (validation.sheet !== name) continue
         dataValidations.add(xml, validation)
+      }
+    }
+    const currentComments = dataStore.get('$comments')
+    if (Array.isArray(currentComments)) {
+      for (const comment of (currentComments as Array<AddComment & { sheet: string }>)) {
+        if (comment.sheet !== name) continue
+        comments.add(comment)
       }
     }
     replaceCells(newSheetData)
