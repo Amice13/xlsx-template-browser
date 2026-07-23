@@ -200,6 +200,11 @@ const downloadReport = async () => {
 
 ## Changelog History
 
+### Version 0.3.4
+
+* Fixes in the headers of Named Tables
+* Added comments are simplified to avoid corruption of the file 
+
 ### Version 0.3.3
 
 * `$comments` and `$validations` are added

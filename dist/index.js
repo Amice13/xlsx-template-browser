@@ -1141,8 +1141,7 @@ var getComments = async ({
       row = location.row;
       column = location.column;
     }
-    const { persons } = workbook;
-    const systemPersonId = persons.getSystemUserId();
+    const systemPersonId = "{00000000-0000-0000-0000-000000000000}";
     const id2 = addThreadedComment(xml, {
       personId: systemPersonId,
       ref,
@@ -1333,14 +1332,14 @@ var getTables = async ({
       t.isDirty = true;
     };
     const finalize = () => {
-      const headersLength = range.columnEnd - range.columnStart + extension.cols + 1;
-      const headersDifference = headersLength - initialHeadersLength;
+      const headersLength = headers.length;
+      const headersDifference = range.columnEnd - range.columnStart + extension.cols + 1 - headersLength;
       if (headersDifference !== 0) {
         for (let i = 0; i < headersDifference; i++) {
-          addHeader("Column", range.columnEnd + i - 1);
+          addHeader("Column", range.columnEnd + i);
         }
         if (tableInMap.lastHeaderCell !== void 0) {
-          tableInMap.lastHeaderCell.newValue = headers.slice(initialHeadersLength - 1);
+          tableInMap.lastHeaderCell.newValue = headers.slice(headersLength - 1);
         }
       }
       const newHeaders = createHeaders(headers);

@@ -116,8 +116,9 @@ export const getComments = async ({
       row = location.row
       column = location.column
     }
-    const { persons } = workbook
-    const systemPersonId = persons.getSystemUserId()
+    // TODO: Support person creation
+    // const { persons } = workbook
+    const systemPersonId = '{00000000-0000-0000-0000-000000000000}'
     const id = addThreadedComment(xml, {
       personId: systemPersonId,
       ref,
